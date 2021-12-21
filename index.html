@@ -14,41 +14,104 @@
 </head>
 
 <body>
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page">Home</li>
-    <li class="breadcrumb-item"><a href="#">Add New Task</a></li>
-    <li class="breadcrumb-item"><a href="#">Edit Task</a></li>
-  </ol>
-</nav>
-<button type="button" class="btn btn-primary">+Add New</button>
+  <div class="jumbotron">
+    <h1 class="display-4">Hello!</h1>
+    <p class="lead">Welcome to your online task management system.</p>
+    <hr class="my-4">
+    <p>You can organize your daily tasks in this page.</p>
+    <p class="lead">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addnew">
+        + Add New Task
+      </button>
+    </p>
+<!-- Modal for adding new task -->
+<div class="modal fade" id="addnew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add a new task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="name" class="form-control" id="name" placeholder="Your name">
+          </div>
+          <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea class="form-control" id="description" rows="3"></textarea>
+            </div>
+  
+            <div class="form-group">
+              <label for="assigned">Assigned to:</label>
+              <input type="name" class="form-control" id="assigned">
+            </div>
+  
+          <div class="form-group">
+              <label for="due">Due Date:</label>
+              <div class="md-form md-outline input-with-post-icon datepicker">
+                  <input placeholder="Select date" type="date" id="example" class="form-control">
+                </div>
+            </div>
+  
+            <div class="form-group">
+              <label for="status">Task status</label>
+              <select class="form-control" id="status">
+                <option>TO DO</option>
+                <option>IN PROGRESS</option>
+                <option>REVIEW</option>
+                <option>DONE</option>
+              </select>
+            </div>
+        </form>
+  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary">Reset</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- card display -->
 <div class="card w-75">
   <div type="button" class="card-body" data-toggle="modal" data-target="#myModal1">
     <h5 class="card-title">Task 1</h5>
+    <span class="badge badge-primary">To Do</span>
+
     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
   </div>
 </div>
 <div class="card w-75">
   <div type="button" class="card-body" data-toggle="modal" data-target="#myModal2">
     <h5 class="card-title">Task 2</h5>
+    <span class="badge badge-primary">To Do</span>
     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
   </div>
 </div>
 <div class="card w-75">
   <div type="button" class="card-body" data-toggle="modal" data-target="#myModal3">
     <h5 class="card-title">Task 3</h5>
+    <span class="badge badge-success">Done</span>
     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
   </div>
 </div>
 <div class="card w-75">
   <div type="button" class="card-body" data-toggle="modal" data-target="#myModal4">
     <h5 class="card-title">Task 4</h5>
+    <span class="badge badge-success">Done</span>
     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
   </div>
 </div>
 <div class="card w-75">
   <div type="button" class="card-body" data-toggle="modal" data-target="#myModal5">
     <h5 class="card-title">Task 5</h5>
+    <span class="badge badge-secondary">In Progress</span>
     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
   </div>
 </div>
@@ -72,7 +135,9 @@
             <li>Due date:</li>
           </ul>
         </p>
-        <button>Edit</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editform">
+          Edit
+        </button>
         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
           data-target="#delete">Delete</button>
       </div>
@@ -129,7 +194,9 @@
             <li>Due date:</li>
           </ul>
         </p>
-        <button>Edit</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editform">
+          Edit
+        </button>
         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#delete2">Delete</button>
       </div>
       <div>
@@ -185,7 +252,9 @@
             <li>Due date:</li>
           </ul>
         </p>
-        <button>Edit</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editform">
+          Edit
+        </button>
         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#delete3">Delete</button>
       </div>
       <div>
@@ -240,7 +309,9 @@
           <li>Due date:</li>
         </ul>
         </p>
-        <button>Edit</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editform">
+          Edit
+        </button>
         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#delete4">Delete</button>
       </div>
       <div>
@@ -249,7 +320,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">Task 3</h5>
+                  <h5 class="modal-title">Task 4</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                       aria-hidden="true">&times;</span></button>
                 </div>
@@ -295,7 +366,9 @@
           <li>Due date:</li>
         </ul>
         </p>
-        <button>Edit</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editform">
+          Edit
+        </button>
         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#delete5">Delete</button>
       </div>
       <div>
@@ -331,8 +404,68 @@
 
   </div>
 </div>
+<!-- Modal for editing task -->
+<div class="modal fade" id="editform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="name" class="form-control" id="name" placeholder="Your name">
+          </div>
+          <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea class="form-control" id="description" rows="3"></textarea>
+            </div>
+  
+            <div class="form-group">
+              <label for="assigned">Assigned to:</label>
+              <input type="name" class="form-control" id="assigned">
+            </div>
+  
+          <div class="form-group">
+              <label for="due">Due Date:</label>
+              <div class="md-form md-outline input-with-post-icon datepicker">
+                  <input placeholder="Select date" type="date" id="example" class="form-control">
+                </div>
+            </div>
+  
+            <div class="form-group">
+              <label for="status">Task status</label>
+              <select class="form-control" id="status">
+                <option>TO DO</option>
+                <option>IN PROGRESS</option>
+                <option>REVIEW</option>
+                <option>DONE</option>
+              </select>
+            </div>
+        </form>
+  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary">Reset</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
 </div>
-</body>
+
+</div>
+  </div>
+
+
+
+
+
+
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -344,6 +477,6 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
-</body>
 
+  </body>
 </html>
