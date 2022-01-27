@@ -63,12 +63,12 @@ form.addEventListener("submit", (event) => {
     validationFail++;
   }
   // Form validation for Task Status Field not empty
-  if (validateAssignedTo.value) {
-    validateAssignedTo.classList.add("is-valid");
-    validateAssignedTo.classList.remove("is-invalid");
+  if (validateStatus.value) {
+    validateStatus.classList.add("is-valid");
+    validateStatus.classList.remove("is-invalid");
   } else {
-    validateAssignedTo.classList.add("is-invalid");
-    validateAssignedTo.classList.remove("is-valid");
+    validateStatus.classList.add("is-invalid");
+    validateStatus.classList.remove("is-valid");
     validationFail++;
   }
   // If validation fails then function will not proceed further and

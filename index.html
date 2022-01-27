@@ -46,12 +46,7 @@
                 <div class="row mb-4">
                   <div class="col">
                     <label for="new-task-name" class="p-0">Task Name:</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="new-task-name"
-                      required
-                    />
+                    <input type="text" class="form-control" id="new-task-name" required/>
                     <div class="valid-feedback">Well done!</div>
                     <div class="invalid-feedback">
                       Please provide a valid name.
@@ -70,7 +65,7 @@
                 </div>
                 <div class="row g-2 mb-3 px-0">
                   <div class="col">
-                    <label for="new-task-assigned-to">Assigned To:</label>
+                    <label for="new-task-assigned-to" class="p-0">Assigned To:</label>
                     <input type="text" class="form-control" id="new-task-assigned-to" required/>
                     <div class="valid-feedback">Looks good!</div>
                     <div class="invalid-feedback">
@@ -79,11 +74,7 @@
                   </div>
                   <div class="col">
                     <label for="new-task-due-date">Due Date:</label>
-                    <input
-                      type="date"
-                      class="form-control"
-                      id="new-task-due-date"
-                    />
+                    <input type="date" class="form-control" id="new-task-due-date"/>
                     <div class="valid-feedback">That's good!</div>
                     <div class="invalid-feedback">
                       Please provide a valid date.
@@ -92,11 +83,17 @@
                 </div>
                 <div class="row g-2">
                   <div class="col">
+                    <label for="new-task-status">Task Status:</label>
                     <select class="form-control" id="new-task-status">
-                      <option selected>In Progress</option>
+                      <option slected>  </option>
                       <option>Done</option>
+                      <option>In Progress</option>
                       <option>To Do</option>
                     </select>
+                    <div class="valid-feedback">All good!</div>
+                    <div class="invalid-feedback">
+                      Please select a task status.
+                    </div>
                   </div>
     
                   <div class="col">
