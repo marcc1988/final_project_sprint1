@@ -35,7 +35,7 @@ form.addEventListener("submit", (event) => {
     validateName.value = "";
     validateDescription.value = "";
     validateAssignedTo.value = "";
-    validateStatus.value = "In Progress";
+    validateStatus.value = "";
     validateDueDate.value = "";
     validateName.classList.remove("is-valid");
     validateDescription.classList.remove("is-valid");
@@ -110,11 +110,15 @@ form.addEventListener("submit", (event) => {
     // Push the valid input into the tasks array
     taskManager.addTask(
       validateName.value,
-      validateDescription.value,
       validateAssignedTo.value,
+      validateDescription.value,
+      validateStatus.value,
       validateDueDate.value,
-      validateStatus.value
       );
+      //renders our tasks, so that they are visible on the page.
+      taskManager.render();
+      //Clears the form fields and closes the modal
       clearFormFields();
+      $("#addnew").modal('hide');
   }
 });
