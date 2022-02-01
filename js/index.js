@@ -136,12 +136,12 @@ taskList.addEventListener("click", (event) => {
 
     // Get the taskId of the parent Task.
     const taskId = Number(parentTask.dataset.taskId);
-
+    const task = taskManager.getTaskById(taskId);
     // Delete the task
     taskManager.deleteTask(taskId);
 
     // Save the tasks to localStorage
-    taskManager.save();
+    //taskManager.save();
 
     // Render the tasks
     taskManager.render();

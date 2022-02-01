@@ -1,5 +1,5 @@
 //Creates Task HTML
-const createTaskHtml = (name, assignedTo, description, status, dueDate) => {
+const createTaskHtml = (id, name, assignedTo, description, status, dueDate) => {
 
   //Decides the colour of Status span
   let statusColour = "badge badge-primary";
@@ -9,8 +9,9 @@ const createTaskHtml = (name, assignedTo, description, status, dueDate) => {
     statusColour = "badge badge-success";
   }
   
-const taskHtml = `<li class="card">
+const taskHtml = `<li class="card"  data-task-id="${id}" >
 <div class="card-body">
+
   <h5 class="card-title">${name}</h5>
    <p class="card-text">Description: ${description}</p>
   <p class="card-text">Assigned To: ${assignedTo}</p>
@@ -65,11 +66,11 @@ class TaskManager {
     // Loop over the tasks and find the task with the id passed as a parameter
     for (let i = 0; i < this.tasks.length; i++) {
       // Get the current task in the loop
-      const newTask = this.tasks[i];
+      const task = this.tasks[i];
       // Check if its the right task by comparing the task's id to the id passed as a parameter
-      if (newTask.id === taskId) {
+      if (task.id === taskId) {
         // Store the task in the foundTask variable
-        foundTask = newTask;
+        foundTask = task;
       }
     }
     // Return the found task
@@ -91,7 +92,7 @@ class TaskManager {
    const [month, day, year] = [dueDate.getMonth()+1, dueDate.getDate(), dueDate.getFullYear()];
    let dateDisplay =  `${day}/${month}/${year}`;
    //Creates Task HTML
-   const taskHtml = createTaskHtml(task.name, task.assignedTo, task.description, task.status, dateDisplay);
+   const taskHtml = createTaskHtml(task.id, task.name, task.assignedTo, task.description, task.status, dateDisplay);
    //push the taskHtml into the tasksHtmlList array.
    tasksHtmlList.push(taskHtml);
  }
