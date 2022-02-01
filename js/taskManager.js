@@ -23,13 +23,16 @@ const taskHtml = `<li class="card">
 
     </div>
     <div class="col-3">
-      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editform">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editform">
       Edit
       </button>
     </div>
     <div class="col-3">
-    <button type="button" class="btn btn-warning btn-sm">Delete</button>
+    <button type="button" class="btn btn-warning delete-button">Delete</button>
     </div>
+
+   
+    
 </li>`
 
 return taskHtml;
@@ -56,6 +59,27 @@ class TaskManager {
     this.tasks.push(newTask);
   }
 
+  getTaskById(taskId) {
+    // Create a variable to store the found task
+    let foundTask;
+    // Loop over the tasks and find the task with the id passed as a parameter
+    for (let i = 0; i < this.tasks.length; i++) {
+      // Get the current task in the loop
+      const newTask = this.tasks[i];
+      // Check if its the right task by comparing the task's id to the id passed as a parameter
+      if (newTask.id === taskId) {
+        // Store the task in the foundTask variable
+        foundTask = newTask;
+      }
+    }
+    // Return the found task
+    return foundTask;
+  }
+
+
+
+
+
 //renders(creates a visual reference of) our tasks, so that they are visible on the page.
   render(){
  let tasksHtmlList = [];
@@ -79,6 +103,25 @@ class TaskManager {
     tasksList.innerHTML = tasksHtml;
   }
 
+  deleteTask(taskId) {
+    // Create an empty array and store it in a new variable, newTasks
+    const newTasks = [];
+
+    // Loop over the tasks
+    for (let i = 0; i < this.tasks.length; i++) {
+      // Get the current task in the loop
+      const task = this.tasks[i];
+
+      // Check if the task id is not the task id passed in as a parameter
+      if (task.id !== taskId) {
+        // Push the task to the newTasks array
+        newTasks.push(task);
+      }
+    }
+
+    // Set this.tasks to newTasks
+    this.tasks = newTasks;
+  }
 
 
 }
