@@ -13,7 +13,7 @@ const createTaskHtml = (id, name, assignedTo, description, status, dueDate) => {
   let doneHtml = "";
   if(status!= "Done"){
     doneHtml = `<button type="button" class="btn btn-primary btn-sm done-button">
-    Done
+    Mark as done
     </button>`
   }
   
