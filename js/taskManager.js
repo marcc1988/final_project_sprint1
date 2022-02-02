@@ -108,6 +108,7 @@ getTaskById(taskId){
   return foundTask;
 }
 
+
 deleteTask(taskId) {
   // Create an empty array and store it in a new variable, newTasks
   const newTasks = [];
@@ -127,6 +128,7 @@ deleteTask(taskId) {
   // Set this.tasks to newTasks
   this.tasks = newTasks;
 }
+
 
 //renders(creates a visual reference of) our tasks, so that they are visible on the page.
   render(){

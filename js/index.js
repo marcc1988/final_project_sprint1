@@ -178,6 +178,7 @@ if(event.target.classList.contains("done-button")){
   taskManager.render();
 }
 
+
 // Check if a "Delete" button was clicked
 if (event.target.classList.contains("delete-button")) {
   // Get the parent Task
@@ -197,4 +198,5 @@ if (event.target.classList.contains("delete-button")) {
   taskManager.render();
 }
 });
+
 
