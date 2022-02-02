@@ -34,9 +34,7 @@ const taskHtml = `<li class="card" data-task-id="${id}">
     ${doneHtml}
     </div>
     <div class="col-2">
-      <button type="button" class="btn btn-secondary btn-sm edit-button" data-toggle="modal" data-target="#editform">
-      Edit
-      </button>
+
     </div>
     <div class="col-2">
     <button type="button" class="btn btn-warning btn-sm delete-button">Delete</button>
