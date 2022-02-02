@@ -1,15 +1,23 @@
 //Creates Task HTML
-const createTaskHtml = (name, assignedTo, description, status, dueDate) => {
+const createTaskHtml = (id, name, assignedTo, description, status, dueDate) => {
 
-  //Decides the colour of Status span
+  //changes the style of the task status 
   let statusColour = "badge badge-primary";
   if(status == "In Progress" ){
     statusColour = "badge badge-secondary";
   }else if(status == "Done"){
     statusColour = "badge badge-success";
   }
+
+  //skips to add done button if the status is already DONE
+  let doneHtml = "";
+  if(status!= "Done"){
+    doneHtml = `<button type="button" class="btn btn-primary btn-sm done-button">
+    Mark as done
+    </button>`
+  }
   
-const taskHtml = `<li class="card">
+const taskHtml = `<li class="card" data-task-id="${id}">
 <div class="card-body">
   <h5 class="card-title">${name}</h5>
    <p class="card-text">Description: ${description}</p>
@@ -22,13 +30,16 @@ const taskHtml = `<li class="card">
     <div class="col-6">
 
     </div>
-    <div class="col-3">
-      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editform">
+    <div class="col-2">
+    ${doneHtml}
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-secondary btn-sm edit-button" data-toggle="modal" data-target="#editform">
       Edit
       </button>
     </div>
-    <div class="col-3">
-    <button type="button" class="btn btn-warning btn-sm">Delete</button>
+    <div class="col-2">
+    <button type="button" class="btn btn-warning btn-sm delete-button">Delete</button>
     </div>
 </li>`
 
@@ -56,6 +67,21 @@ class TaskManager {
     this.tasks.push(newTask);
   }
 
+
+
+//adding getTaskById method to taskManager class
+//Loops over the tasks array and returns task by the given task id
+getTaskById(taskId){
+  let foundTask;
+  for(let i=0; i<this.tasks.length; i++){
+    const task = this.tasks[i];
+    if(task.id==taskId){
+      foundTask = task;
+    }
+  }
+  return foundTask;
+}
+
 //renders(creates a visual reference of) our tasks, so that they are visible on the page.
   render(){
  let tasksHtmlList = [];
@@ -67,7 +93,7 @@ class TaskManager {
    const [month, day, year] = [dueDate.getMonth()+1, dueDate.getDate(), dueDate.getFullYear()];
    let dateDisplay =  `${day}/${month}/${year}`;
    //Creates Task HTML
-   const taskHtml = createTaskHtml(task.name, task.assignedTo, task.description, task.status, dateDisplay);
+   const taskHtml = createTaskHtml(task.id, task.name, task.assignedTo, task.description, task.status, dateDisplay);
    //push the taskHtml into the tasksHtmlList array.
    tasksHtmlList.push(taskHtml);
  }
@@ -79,14 +105,6 @@ class TaskManager {
     tasksList.innerHTML = tasksHtml;
   }
 
-
-
 }
-// //Initialize a new instance of TaskManager
-// let task2 = new TaskManager();
-// //Use the addTask method to add a new task
-// task2.addTask(1, 2, 3, 4, 5)
-// task2.addTask(1, 2, 3, 4, 5)
-// console.log() //the tasks property
-// console.log(task2.tasks);
+
 
