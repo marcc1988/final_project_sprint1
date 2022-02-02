@@ -1,7 +1,7 @@
 //Creates Task HTML
 const createTaskHtml = (id, name, assignedTo, description, status, dueDate) => {
 
-  //changes the style of the task status 
+  //changes the style of the task status
   let statusColour = "badge badge-primary";
   if(status == "In Progress" ){
     statusColour = "badge badge-secondary";
@@ -16,7 +16,7 @@ const createTaskHtml = (id, name, assignedTo, description, status, dueDate) => {
     Mark as done
     </button>`
   }
-  
+
 const taskHtml = `<li class="card" data-task-id="${id}">
 <div class="card-body">
   <h5 class="card-title">${name}</h5>
@@ -66,6 +66,32 @@ class TaskManager {
     };
     this.tasks.push(newTask);
   }
+  save() {
+  // create a JSON string of the tasks and store it to a new variable
+    const tasksJson = JSON.stringify(this.tasks);
+  // store the JSON string in localStorage
+    localStorage.setItem('tasks', tasksJson);
+  // convert the this.currentId to a string
+    const currentId = JSON.stringify(this.currentId);
+  // store currentId in localStorage
+    localStorage.setItem('currentId', currentId);
+  }
+  load() {
+  // check if any tasks are saved in localStorage
+    if (localStorage.getItem('tasks')) {
+      // get the JSON string of tasks stored
+      const tasksJson = localStorage.getItem('tasks')
+      // convert the tasksJson string to an array
+      this.tasks = JSON.parse(tasksJson);
+    }
+      // check if currentId is saved in localStorage
+    if (localStorage.getItem('currentId')) {
+      // get the currentId and store it in a new variable currentId
+      const currentId = localStorage.getItem('currentId')
+      // convert currentId to a number
+      this.currentId = JSON.parse(currentId);
+    }
+    }
 
 
 
@@ -106,5 +132,3 @@ getTaskById(taskId){
   }
 
 }
-
-
