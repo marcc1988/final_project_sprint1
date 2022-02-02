@@ -1,4 +1,4 @@
-//Helper function to format a given value to the specified length 
+//Helper function to format a given value to the specified length
 function FormatLength(value, length) {
   let formattedValue = "" + value;
   while (formattedValue.length < length) {
@@ -18,6 +18,8 @@ function convertDateFormat(givenDate){
 
 // Initialize a new TaskManager with currentId set to 0
 const taskManager = new TaskManager(0);
+taskManager.load();
+taskManager.render();
 
 // Finding and Display the Date Object
 const dateElement = document.querySelector("#date-display");
@@ -150,6 +152,7 @@ form.addEventListener("submit", (event) => {
       validateStatus.value,
       validateDueDate.value,
       );
+      taskManager.load();
       //renders our tasks, so that they are visible on the page.
       taskManager.render();
       //Clears the form fields and closes the modal
