@@ -33,6 +33,7 @@ dateElement.innerHTML = dateDisplay;
 const form = document.querySelector("#add-new-task");
 
 
+
 form.addEventListener("submit", (event) => {
   const validateName = document.querySelector("#new-task-name");
   const validateDescription = document.querySelector("#new-task-description");
@@ -161,8 +162,6 @@ form.addEventListener("submit", (event) => {
 });
 
 
-
-
 //Adds taskList event listener for click event
 const taskList = document.querySelector("#task-list");
 taskList.addEventListener("click", (event)=>{
@@ -178,23 +177,24 @@ if(event.target.classList.contains("done-button")){
   //renders the updated task
   taskManager.render();
 }
-  if (event.target.classList.contains("delete-button")) {
-    // Get the parent Task
-    const parentTask =
-      event.target.parentElement.parentElement.parentElement.parentElement;
 
-    // Get the taskId of the parent Task.
-    const taskId = Number(parentTask.dataset.taskId);
-    const task = taskManager.getTaskById(taskId);
-    // Delete the task
-    taskManager.deleteTask(taskId);
+// Check if a "Delete" button was clicked
+if (event.target.classList.contains("delete-button")) {
+  // Get the parent Task
+  const parentTask =
+    event.target.parentElement.parentElement.parentElement.parentElement;
 
-    // Save the tasks to localStorage
-    taskManager.save();
+  // Get the taskId of the parent Task.
+  const taskId = Number(parentTask.dataset.taskId);
 
+  // Delete the task
+  taskManager.deleteTask(taskId);
 
-    // Render the tasks
-    taskManager.render();
-  }
-  
-})
+  // Save the tasks to localStorage
+  taskManager.save();
+
+  // Render the tasks
+  taskManager.render();
+}
+});
+

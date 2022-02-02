@@ -9,10 +9,6 @@ const createTaskHtml = (id, name, assignedTo, description, status, dueDate) => {
     statusColour = "badge badge-success";
   }
 
-  
-
-
-
   //skips to add done button if the status is already DONE
   let doneHtml = "";
   if(status!= "Done"){
@@ -22,9 +18,7 @@ const createTaskHtml = (id, name, assignedTo, description, status, dueDate) => {
   }
 
 const taskHtml = `<li class="card" data-task-id="${id}">
-
 <div class="card-body">
-
   <h5 class="card-title">${name}</h5>
    <p class="card-text">Description: ${description}</p>
   <p class="card-text">Assigned To: ${assignedTo}</p>
@@ -36,7 +30,6 @@ const taskHtml = `<li class="card" data-task-id="${id}">
     <div class="col-6">
 
     </div>
-
     <div class="col-2">
     ${doneHtml}
     </div>
@@ -47,11 +40,7 @@ const taskHtml = `<li class="card" data-task-id="${id}">
     </div>
     <div class="col-2">
     <button type="button" class="btn btn-warning btn-sm delete-button">Delete</button>
-
     </div>
-
-   
-    
 </li>`
 
 return taskHtml;
@@ -119,56 +108,25 @@ getTaskById(taskId){
   return foundTask;
 }
 
-  save() {
-    // create a JSON string of the tasks and store it to a new variable
-      const tasksJson = JSON.stringify(this.tasks);
-    // store the JSON string in localStorage
-      localStorage.setItem('tasks', tasksJson);
-    // convert the this.currentId to a string
-      const currentId = JSON.stringify(this.currentId);
-    // store currentId in localStorage
-      localStorage.setItem('currentId', currentId);
+deleteTask(taskId) {
+  // Create an empty array and store it in a new variable, newTasks
+  const newTasks = [];
+
+  // Loop over the tasks
+  for (let i = 0; i < this.tasks.length; i++) {
+    // Get the current task in the loop
+    const task = this.tasks[i];
+
+    // Check if the task id is not the task id passed in as a parameter
+    if (task.id !== taskId) {
+      // Push the task to the newTasks array
+      newTasks.push(task);
     }
-    load() {
-    // check if any tasks are saved in localStorage
-      if (localStorage.getItem('tasks')) {
-        // get the JSON string of tasks stored
-        const tasksJson = localStorage.getItem('tasks')
-        // convert the tasksJson string to an array
-        this.tasks = JSON.parse(tasksJson);
-      }
-        // check if currentId is saved in localStorage
-      if (localStorage.getItem('currentId')) {
-        // get the currentId and store it in a new variable currentId
-        const currentId = localStorage.getItem('currentId')
-        // convert currentId to a number
-        this.currentId = JSON.parse(currentId);
-      }
-    }
-
-
-
-
-  getTaskById(taskId) {
-    // Create a variable to store the found task
-    let foundTask;
-    // Loop over the tasks and find the task with the id passed as a parameter
-    for (let i = 0; i < this.tasks.length; i++) {
-      // Get the current task in the loop
-      const task = this.tasks[i];
-      // Check if its the right task by comparing the task's id to the id passed as a parameter
-      if (task.id === taskId) {
-        // Store the task in the foundTask variable
-        foundTask = task;
-      }
-    }
-    // Return the found task
-    return foundTask;
   }
 
-
-
-
+  // Set this.tasks to newTasks
+  this.tasks = newTasks;
+}
 
 //renders(creates a visual reference of) our tasks, so that they are visible on the page.
   render(){
@@ -193,36 +151,5 @@ getTaskById(taskId){
     tasksList.innerHTML = tasksHtml;
   }
 
-
-  deleteTask(taskId) {
-    // Create an empty array and store it in a new variable, newTasks
-    const newTasks = [];
-
-    // Loop over the tasks
-    for (let i = 0; i < this.tasks.length; i++) {
-      // Get the current task in the loop
-      const task = this.tasks[i];
-
-      // Check if the task id is not the task id passed in as a parameter
-      if (task.id !== taskId) {
-        // Push the task to the newTasks array
-        newTasks.push(task);
-      }
-    }
-
-    // Set this.tasks to newTasks
-    this.tasks = newTasks;
-  }
-
-
 }
-
-// //Initialize a new instance of TaskManager
-// let task2 = new TaskManager();
-// //Use the addTask method to add a new task
-// task2.addTask(1, 2, 3, 4, 5)
-// task2.addTask(1, 2, 3, 4, 5)
-// console.log() //the tasks property
-// console.log(task2.tasks);
-
 
