@@ -1,12 +1,21 @@
 //Creates Task HTML
 const createTaskHtml = (id, name, assignedTo, description, status, dueDate) => {
 
-  //Decides the colour of Status span
+  //changes the style of the task status 
   let statusColour = "badge badge-primary";
   if(status == "In Progress" ){
     statusColour = "badge badge-secondary";
   }else if(status == "Done"){
     statusColour = "badge badge-success";
+  }
+
+  //skips to add done button if the status is already DONE
+  let doneHtml = "";
+
+  if(status!= "Done"){
+    doneHtml = `<button type="button" class="btn btn-primary btn-sm done-button">
+    Mark as done
+    </button>`
   }
   
 const taskHtml = `<li class="card"  data-task-id="${id}" >
@@ -20,20 +29,20 @@ const taskHtml = `<li class="card"  data-task-id="${id}" >
   </p>
   <p class="card-text">Due Date: ${dueDate}</p>
   <div class="card-footer row">
-    <div class="col-6">
+  <div class="col-6">
 
+  </div>
+    <div class="col-2">
+    ${doneHtml}
     </div>
-    <div class="col-3">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editform">
+    <div class="col-2">
+      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editform">
       Edit
       </button>
     </div>
-    <div class="col-3">
-    <button type="button" class="btn btn-warning delete-button">Delete</button>
-    </div>
-
-   
-    
+    <div class="col-2">
+    <button type="button" class="btn btn-warning btn-sm delete-button">Delete</button>
+    </div>    
 </li>`
 
 return taskHtml;
@@ -47,7 +56,7 @@ class TaskManager {
   }
   // Create the addTask method
   addTask(name, assignedTo, description, status, dueDate) {
-    this.currentId++
+    this.currentId++;
     // Create a task object that we will push to the list of tasks
     const newTask = {
       id: this.currentId,
@@ -60,6 +69,7 @@ class TaskManager {
     this.tasks.push(newTask);
   }
 
+
   save() {
     // create a JSON string of the tasks and store it to a new variable
       const tasksJson = JSON.stringify(this.tasks);
@@ -70,6 +80,8 @@ class TaskManager {
     // store currentId in localStorage
       localStorage.setItem('currentId', currentId);
     }
+
+
     load() {
     // check if any tasks are saved in localStorage
       if (localStorage.getItem('tasks')) {
@@ -89,27 +101,18 @@ class TaskManager {
 
 
 
-
-  getTaskById(taskId) {
-    // Create a variable to store the found task
-    let foundTask;
-    // Loop over the tasks and find the task with the id passed as a parameter
-    for (let i = 0; i < this.tasks.length; i++) {
-      // Get the current task in the loop
-      const task = this.tasks[i];
-      // Check if its the right task by comparing the task's id to the id passed as a parameter
-      if (task.id === taskId) {
-        // Store the task in the foundTask variable
-        foundTask = task;
-      }
+//adding getTaskById method to taskManager class
+//Loops over the tasks array and returns task by the given task id
+getTaskById(taskId){
+  let foundTask;
+  for(let i=0; i<this.tasks.length; i++){
+    const task = this.tasks[i];
+    if(task.id==taskId){
+      foundTask = task;
     }
-    // Return the found task
-    return foundTask;
   }
-
-
-
-
+  return foundTask;
+}
 
 //renders(creates a visual reference of) our tasks, so that they are visible on the page.
   render(){
@@ -157,11 +160,6 @@ class TaskManager {
 
 }
 
-// //Initialize a new instance of TaskManager
-// let task2 = new TaskManager();
-// //Use the addTask method to add a new task
-// task2.addTask(1, 2, 3, 4, 5)
-// task2.addTask(1, 2, 3, 4, 5)
-// console.log() //the tasks property
-// console.log(task2.tasks);
+
+
 

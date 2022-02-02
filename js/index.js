@@ -1,5 +1,25 @@
+//Helper function to format a given value to the specified length 
+function FormatLength(value, length) {
+  let formattedValue = "" + value;
+  while (formattedValue.length < length) {
+    formattedValue = "0" + formattedValue;
+  }
+  return formattedValue;
+}
+
+//Helper function to converts date to YYYYMMDD format
+function convertDateFormat(givenDate){
+  let date = new Date(givenDate);
+  const [givenMonth, givenDay, givenYear] = [date.getMonth()+1, date.getDate(), date.getFullYear()];
+  let dateString = FormatLength(givenYear,4).toString()+FormatLength(givenMonth,2).toString()+FormatLength(givenDay,2).toString();
+  return dateString;
+}
+
+
 // Initialize a new TaskManager with currentId set to 0
 const taskManager = new TaskManager(0);
+taskManager.load();
+taskManager.render();
 
 // Finding and Display the Date Object
 const dateElement = document.querySelector("#date-display");
@@ -7,6 +27,7 @@ let today = new Date();
 const [month, day, year] = [today.getMonth()+1, today.getDate(), today.getFullYear()];
 let dateDisplay = `Current Date: ${day} / ${month} / ${year}`;
 dateElement.innerHTML = dateDisplay;
+
 
 // Select the New Task Form
 const form = document.querySelector("#add-new-task");
@@ -83,13 +104,29 @@ form.addEventListener("submit", (event) => {
   // Form validation for Due Date Field not empty
   // try your own validation for a date in the future
   if (validateDueDate.value) {
-    validateDueDate.classList.add("is-valid");
-    validateDueDate.classList.remove("is-invalid");
+
+    //checks if the date is not in the past
+
+    //Converts date to the format of YYYYMMDD
+    let dateString = convertDateFormat(today); // 20220202
+    let dueDateString = convertDateFormat(new Date(validateDueDate.value));//20220131
+
+    if(Number(dueDateString) >= Number(dateString)){
+      validateDueDate.classList.add("is-valid");
+      validateDueDate.classList.remove("is-invalid");
+    }else {
+      validateDueDate.classList.add("is-invalid");
+      validateDueDate.classList.remove("is-valid");
+      validationFail++;
+    }
+
   } else {
     validateDueDate.classList.add("is-invalid");
     validateDueDate.classList.remove("is-valid");
     validationFail++;
   }
+
+
   // Form validation for Task Status Field not empty
   if (validateStatus.value) {
     validateStatus.classList.add("is-valid");
@@ -115,6 +152,9 @@ form.addEventListener("submit", (event) => {
       validateStatus.value,
       validateDueDate.value,
       );
+
+      taskManager.save();
+
       //renders our tasks, so that they are visible on the page.
       taskManager.render();
       //Clears the form fields and closes the modal
@@ -147,4 +187,23 @@ taskList.addEventListener("click", (event) => {
     // Render the tasks
     taskManager.render();
   }
-});
+
+
+//Adds taskList event listener for click event
+
+if(event.target.classList.contains("done-button")){
+  //gets the parent task where the Done button was clicked
+  const parentTask = event.target.parentElement.parentElement.parentElement.parentElement;
+  //converts the task id of the parent task html to a number and store it in a variable
+  const taskId = Number(parentTask.dataset.taskId);
+  //gets the task from the task list with the given task id
+  const task = taskManager.getTaskById(taskId);
+  //changes the status of task to done
+  task.status = "Done";
+
+  // Save the tasks to localStorage
+  taskManager.save();
+  //renders the updated task
+  taskManager.render();
+}
+})
