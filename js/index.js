@@ -143,7 +143,8 @@ taskList.addEventListener("click", (event) => {
     // Delete the task
     taskManager.deleteTask(taskId);
 
-    // Save the tasks to localStorage;
+    // Save the tasks to localStorage
+    taskManager.save();
 
 
     // Render the tasks
