@@ -60,6 +60,36 @@ class TaskManager {
     this.tasks.push(newTask);
   }
 
+  save() {
+    // create a JSON string of the tasks and store it to a new variable
+      const tasksJson = JSON.stringify(this.tasks);
+    // store the JSON string in localStorage
+      localStorage.setItem('tasks', tasksJson);
+    // convert the this.currentId to a string
+      const currentId = JSON.stringify(this.currentId);
+    // store currentId in localStorage
+      localStorage.setItem('currentId', currentId);
+    }
+    load() {
+    // check if any tasks are saved in localStorage
+      if (localStorage.getItem('tasks')) {
+        // get the JSON string of tasks stored
+        const tasksJson = localStorage.getItem('tasks')
+        // convert the tasksJson string to an array
+        this.tasks = JSON.parse(tasksJson);
+      }
+        // check if currentId is saved in localStorage
+      if (localStorage.getItem('currentId')) {
+        // get the currentId and store it in a new variable currentId
+        const currentId = localStorage.getItem('currentId')
+        // convert currentId to a number
+        this.currentId = JSON.parse(currentId);
+      }
+    }
+
+
+
+
   getTaskById(taskId) {
     // Create a variable to store the found task
     let foundTask;
@@ -126,6 +156,7 @@ class TaskManager {
 
 
 }
+
 // //Initialize a new instance of TaskManager
 // let task2 = new TaskManager();
 // //Use the addTask method to add a new task
