@@ -32,15 +32,10 @@ const taskHtml = `<li class="card"  data-task-id="${id}" >
   <div class="col-6">
 
   </div>
-    <div class="col-2">
+    <div class="col-3">
     ${doneHtml}
     </div>
-    <div class="col-2">
-      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editform">
-      Edit
-      </button>
-    </div>
-    <div class="col-2">
+    <div class="col-3">
     <button type="button" class="btn btn-warning btn-sm delete-button">Delete</button>
     </div>    
 </li>`
