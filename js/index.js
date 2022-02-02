@@ -1,6 +1,7 @@
 // Initialize a new TaskManager with currentId set to 0
 const taskManager = new TaskManager(0);
-
+taskManager.load();
+taskManager.render();
 // Finding and Display the Date Object
 const dateElement = document.querySelector("#date-display");
 let today = new Date();
@@ -115,6 +116,8 @@ form.addEventListener("submit", (event) => {
       validateStatus.value,
       validateDueDate.value,
       );
+      //to save the task to localStorage
+      taskManager.save();
       //renders our tasks, so that they are visible on the page.
       taskManager.render();
       //Clears the form fields and closes the modal

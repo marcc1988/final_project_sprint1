@@ -1,12 +1,21 @@
 //Creates Task HTML
 const createTaskHtml = (id, name, assignedTo, description, status, dueDate) => {
 
-  //Decides the colour of Status span
+  //changes the style of the task status
   let statusColour = "badge badge-primary";
   if(status == "In Progress" ){
     statusColour = "badge badge-secondary";
   }else if(status == "Done"){
     statusColour = "badge badge-success";
+  }
+
+
+  //skips to add done button if the status is already DONE
+  let doneHtml = "";
+  if(status!= "Done"){
+    doneHtml = `<button type="button" class="btn btn-primary btn-sm done-button">
+    Mark as done
+    </button>`
   }
   
 const taskHtml = `<li class="card"  data-task-id="${id}" >
@@ -23,13 +32,17 @@ const taskHtml = `<li class="card"  data-task-id="${id}" >
     <div class="col-6">
 
     </div>
-    <div class="col-3">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editform">
+
+    <div class="col-2">
+    ${doneHtml}
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-secondary btn-sm edit-button" data-toggle="modal" data-target="#editform">
       Edit
       </button>
     </div>
-    <div class="col-3">
-    <button type="button" class="btn btn-warning delete-button">Delete</button>
+    <div class="col-2">
+    <button type="button" class="btn btn-warning btn-sm delete-button">Delete</button>
     </div>
 
    
@@ -59,6 +72,47 @@ class TaskManager {
     };
     this.tasks.push(newTask);
   }
+  save() {
+  // create a JSON string of the tasks and store it to a new variable
+    const tasksJson = JSON.stringify(this.tasks);
+  // store the JSON string in localStorage
+    localStorage.setItem('tasks', tasksJson);
+  // convert the this.currentId to a string
+    const currentId = JSON.stringify(this.currentId);
+  // store currentId in localStorage
+    localStorage.setItem('currentId', currentId);
+  }
+  load() {
+  // check if any tasks are saved in localStorage
+    if (localStorage.getItem('tasks')) {
+      // get the JSON string of tasks stored
+      const tasksJson = localStorage.getItem('tasks')
+      // convert the tasksJson string to an array
+      this.tasks = JSON.parse(tasksJson);
+    }
+      // check if currentId is saved in localStorage
+    if (localStorage.getItem('currentId')) {
+      // get the currentId and store it in a new variable currentId
+      const currentId = localStorage.getItem('currentId')
+      // convert currentId to a number
+      this.currentId = JSON.parse(currentId);
+    }
+    }
+
+
+
+//adding getTaskById method to taskManager class
+//Loops over the tasks array and returns task by the given task id
+getTaskById(taskId){
+  let foundTask;
+  for(let i=0; i<this.tasks.length; i++){
+    const task = this.tasks[i];
+    if(task.id==taskId){
+      foundTask = task;
+    }
+  }
+  return foundTask;
+}
 
   save() {
     // create a JSON string of the tasks and store it to a new variable
@@ -134,6 +188,9 @@ class TaskManager {
     tasksList.innerHTML = tasksHtml;
   }
 
+
+}
+
   deleteTask(taskId) {
     // Create an empty array and store it in a new variable, newTasks
     const newTasks = [];
@@ -164,4 +221,3 @@ class TaskManager {
 // task2.addTask(1, 2, 3, 4, 5)
 // console.log() //the tasks property
 // console.log(task2.tasks);
-
