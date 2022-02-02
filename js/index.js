@@ -109,7 +109,7 @@ form.addEventListener("submit", (event) => {
     let dateString = convertDateFormat(today); // 20220202
     let dueDateString = convertDateFormat(new Date(validateDueDate.value));//20220131
 
-    if(Number(dueDateString) > Number(dateString)){
+    if(Number(dueDateString) >= Number(dateString)){
       validateDueDate.classList.add("is-valid");
       validateDueDate.classList.remove("is-invalid");
     }else {
